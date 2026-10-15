@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>글로벌 미식 여권: 중학 영어 문장 어순 어드벤처</title>
+  <meta name="description" content="중학교 영어 문장의 어순을 세계 전통 음식과 함께 재미있게 배우는 인터랙티브 문장 배열 게임">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="passport-desk">
+    <!-- Main Passport Booklet -->
+    <main class="passport-booklet" id="passportBooklet">
+      
+      <!-- Passport Header (Leather & Gold Foil Style) -->
+      <header class="passport-header">
+        <div class="header-emblem">
+          <span class="emblem-star">★</span>
+          <div class="emblem-ring">
+            <span class="emblem-icon">✈️</span>
+          </div>
+          <span class="emblem-star">★</span>
+        </div>
+        <div class="header-titles">
+          <p class="passport-subtitle">GLOBAL CULINARY IMMIGRATION BUREAU</p>
+          <h1 class="passport-title">글로벌 미식 여권 <span class="badge-title">어순 여행</span></h1>
+        </div>
+        <div class="header-status">
+          <span class="visa-badge" id="totalProgressBadge">비자 발급: 0 / 15</span>
+        </div>
+      </header>
+
+      <!-- Category Navigation Tabs (Passport Page Tabs) -->
+      <nav class="passport-tabs" role="tablist" aria-label="의견별 카테고리">
+        <button class="tab-btn active tab-pro" id="tabPro" role="tab" aria-selected="true" data-category="pro">
+          <span class="tab-dot basil"></span>
+          <span class="tab-label">찬성 입장</span>
+          <span class="tab-count" id="countPro">0/5</span>
+        </button>
+        <button class="tab-btn tab-neutral" id="tabNeutral" role="tab" aria-selected="false" data-category="neutral">
+          <span class="tab-dot turmeric"></span>
+          <span class="tab-label">중립 입장</span>
+          <span class="tab-count" id="countNeutral">0/5</span>
+        </button>
+        <button class="tab-btn tab-con" id="tabCon" role="tab" aria-selected="false" data-category="con">
+          <span class="tab-dot chili"></span>
+          <span class="tab-label">반대 입장</span>
+          <span class="tab-count" id="countCon">0/5</span>
+        </button>
+      </nav>
+
+      <!-- Passport Inner Visa Page -->
+      <section class="passport-page">
+        
+        <!-- Passport Meta & Progress Bar -->
+        <div class="page-top-bar">
+          <div class="flight-tag">
+            <span class="tag-label">ENTRY PERMIT</span>
+            <span class="tag-code" id="questionCode">FOOD-PRO-01</span>
+          </div>
+
+          <div class="category-progress-container">
+            <div class="progress-info">
+              <span class="progress-title" id="categoryTitleText">📗 찬성 입장 문장 탐험</span>
+              <span class="progress-percentage" id="categoryProgressPercent">0% 완료 (0/5)</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="sound-toggle-box">
+            <button class="btn-sound" id="btnToggleSound" title="효과음 켜기/끄기" aria-label="효과음 토글">
+              <span class="sound-icon" id="soundIcon">🔔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question Card: Country & Korean Sentence -->
+        <article class="question-card" id="questionCard">
+          <div class="question-meta-row">
+            <div class="country-pill" id="countryPill">
+              <span class="country-flag" id="countryFlag">🇰🇷</span>
+              <span class="country-name" id="countryName">대한민국</span>
+              <span class="food-name" id="foodName">전통 발효 김치</span>
+            </div>
+            
+            <div class="question-tools">
+              <button class="btn-tool" id="btnSpeak" title="영어 문장 원어민 발음 듣기" aria-label="발음 듣기">
+                <span class="icon">🔊</span> 발음 듣기
+              </button>
+              <button class="btn-tool highlight" id="btnHintModal" title="어순 공식 힌트 보기" aria-label="어순 공식 힌트 보기">
+                <span class="icon">💡</span> 어순 공식
+              </button>
+            </div>
+          </div>
+
+          <!-- Korean Mission Statement -->
+          <div class="korean-box">
+            <span class="korean-label">배열할 우리말 문장</span>
+            <p class="korean-text" id="koreanPrompt">나는 김치가 우리의 면역 체계를 강화한다고 믿는다.</p>
+          </div>
+
+          <!-- Grammar Target Hint Snippet -->
+          <div class="formula-preview" id="formulaPreview">
+            <span class="formula-tag">🎯 목표 어순 공식:</span>
+            <span class="formula-text" id="formulaShortText">주어 + 동사 + that + 주어 + 동사구 + 목적어</span>
+          </div>
+        </article>
+
+        <!-- Dynamic Stamp Overlay (Animated on success/failure) -->
+        <div class="stamp-overlay" id="stampOverlay" aria-hidden="true">
+          <div class="customs-stamp" id="customsStamp">
+            <div class="stamp-inner">
+              <div class="stamp-stars">★★★</div>
+              <div class="stamp-title" id="stampTitle">CUSTOMS APPROVED</div>
+              <div class="stamp-subtitle" id="stampSubtitle">어순 심사 통과</div>
+              <div class="stamp-date" id="stampDate">2026.10.15 PASS</div>
+              <div class="stamp-stars">★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sentence Construction Zone (Arrangement Tray) -->
+        <section class="construction-zone">
+          <div class="zone-header">
+            <div class="zone-title-wrap">
+              <span class="zone-icon">📋</span>
+              <span class="zone-title">배열 칸 (클릭하여 완성하세요)</span>
+            </div>
+            <span class="zone-guide">조각을 클릭하면 취소되어 아래로 돌아갑니다</span>
+          </div>
+
+          <!-- Answer Slot Area -->
+          <div class="answer-tray" id="answerTray" aria-live="polite">
+            <!-- Empty state placeholder -->
+            <div class="tray-placeholder" id="trayPlaceholder">
+              <span class="placeholder-icon">👇</span>
+              <span>아래의 단어(구) 조각을 올바른 순서대로 클릭하여 문장을 만드세요</span>
+            </div>
+          </div>
+
+          <!-- Status Message Bar (Success / Error hints) -->
+          <div class="feedback-msg-bar" id="feedbackMsgBar" role="alert" style="display: none;">
+            <span class="msg-icon" id="feedbackIcon">✅</span>
+            <span class="msg-text" id="feedbackText">정답입니다!</span>
+          </div>
+        </section>
+
+        <!-- Word Pool Section -->
+        <section class="word-pool-section">
+          <div class="pool-header">
+            <div class="pool-title-wrap">
+              <span class="pool-icon">🗂️</span>
+              <span class="pool-title">단어(구) 조각 보관함</span>
+            </div>
+            <div class="sv-legend">
+              <span class="sv-badge-sample"></span>
+              <span class="sv-legend-text"><strong>주어+동사</strong> 조각 (문장의 기둥!)</span>
+            </div>
+          </div>
+
+          <!-- Shuffled Buttons Container -->
+          <div class="word-pool" id="wordPool" aria-label="선택 가능한 단어 조각 목록">
+            <!-- Dynamically injected chunk buttons -->
+          </div>
+        </section>
+
+        <!-- Bottom Action Controls -->
+        <div class="page-action-bar">
+          <button class="btn-action btn-secondary" id="btnReset" title="처음부터 다시 놓기">
+            <span class="btn-icon">↺</span> 처음부터 다시
+          </button>
+          
+          <button class="btn-action btn-check" id="btnCheck">
+            <span class="btn-icon">✨</span> 정답 확인
+          </button>
+
+          <button class="btn-action btn-next" id="btnNext" style="display: none;">
+            <span>다음 문항으로</span> <span class="btn-icon">➜</span>
+          </button>
+        </div>
+
+        <!-- Passport Footer Info -->
+        <footer class="passport-page-footer">
+          <div class="footer-stamps-summary" id="footerStampsSummary">
+            <!-- 5 mini stamp badges -->
+          </div>
+          <p class="footer-note">Spice Market English Expedition • Middle School Grammar Edition</p>
+        </footer>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Structure Hint Modal -->
+  <div class="modal-backdrop" id="hintModal" aria-hidden="true" role="dialog" aria-labelledby="hintModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-header-icon">💡</div>
+        <h2 class="modal-title" id="hintModalTitle">영어 문장 구조 공식 비법</h2>
+        <button class="modal-close-btn" id="btnCloseHint" aria-label="닫기">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="formula-card">
+          <span class="formula-badge">기본 문장 공식</span>
+          <div class="formula-flow">
+            <div class="formula-chip chip-sv">
+              <span class="chip-type">주절 기둥 (S + V)</span>
+              <span class="chip-example" id="hintChipMainSV">I believe</span>
+            </div>
+            <span class="formula-arrow">+</span>
+            <div class="formula-chip chip-conn">
+              <span class="chip-type">연결 접속사</span>
+              <span class="chip-example">that</span>
+            </div>
+            <span class="formula-arrow">+</span>
+            <div class="formula-chip chip-clause">
+              <span class="chip-type">종속절 주어 (S')</span>
+              <span class="chip-example" id="hintChipSubj">kimchi</span>
+            </div>
+            <span class="formula-arrow">+</span>
+            <div class="formula-chip chip-pred">
+              <span class="chip-type">동사구 + 보어/목적어 (V' + O/C)</span>
+              <span class="chip-example" id="hintChipPred">strengthens our immune system</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hint-explanation-card">
+          <h3 class="explanation-title">📌 중학생을 위한 어순 핵심 포인트</h3>
+          <ul class="explanation-list">
+            <li><strong>1. 문장의 머리와 심장(노란색 조각):</strong> 영어는 항상 <span class="txt-turmeric">"누가(주어) + 어떻게 생각하는지(동사)"</span>가 제일 먼저 옵니다!</li>
+            <li><strong>2. 생각의 문을 여는 열쇠 [that]:</strong> 의견, 주장, 믿음을 전달할 때는 접속사 <code>that</code>으로 새로운 문장 덩어리를 연결합니다.</li>
+            <li><strong>3. that 뒤에도 [주어 + 동사구]:</strong> that 절 속에서도 반드시 <span class="txt-basil">"주어 ➔ 동사 ➔ 목적어/보어"</span> 순서로 이어집니다.</li>
+          </ul>
+        </div>
+
+        <div class="current-sentence-tip">
+          <span class="tip-badge">현재 문장 가이드</span>
+          <p class="tip-text" id="currentSentenceTipText">
+            "나는 믿는다(I believe)"를 가장 먼저 놓고, 그 뒤에 "김치가 강화한다는 것을(that kimchi strengthens our immune system)" 순서로 배치해보세요!
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-action btn-modal-confirm" id="btnConfirmHint">이해했어요! 직접 맞춰볼게요</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Completion / Visa Celebration Modal -->
+  <div class="modal-backdrop" id="celebrationModal" aria-hidden="true" role="dialog">
+    <div class="modal-sheet celebration-sheet">
+      <div class="confetti-container" id="confettiContainer"></div>
+      
+      <div class="celebration-seal">
+        <span class="seal-icon">🏆</span>
+      </div>
+
+      <h2 class="celebration-title" id="celebrationTitle">카테고리 입국 비자 발급 완료!</h2>
+      <p class="celebration-desc" id="celebrationDesc">
+        축하합니다! 해당 카테고리의 5개 문항을 모두 완벽한 어순으로 정복하여 공식 글로벌 미식 스탬프를 획득했습니다!
+      </p>
+
+      <div class="celebration-passport-stamp">
+        <div class="big-stamp-ring">
+          <span class="big-stamp-star">★ ★ ★</span>
+          <span class="big-stamp-text">VISA ISSUED</span>
+          <span class="big-stamp-sub">SPICE MARKET MASTERY</span>
+          <span class="big-stamp-star">★ ★ ★</span>
+        </div>
+      </div>
+
+      <div class="celebration-actions">
+        <button class="btn-action btn-celebration-next" id="btnCelebrationNextTab">
+          다음 카테고리 여행하기 ✈️
+        </button>
+        <button class="btn-action btn-secondary" id="btnCelebrationClose">
+          현재 문제 복습하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
